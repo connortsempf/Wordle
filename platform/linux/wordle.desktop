@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0.0
+Type=Application
+Name=Wordle
+Comment=A word-guessing game
+Exec=wordle
+Icon=wordle
+Categories=Game;
+Terminal=false
+StartupNotify=true

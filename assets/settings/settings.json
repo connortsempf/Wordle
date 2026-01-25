@@ -1,0 +1,28 @@
+{
+    "dark-theme": true,
+    "hard-mode": false,
+    "high-contrast-mode": false,
+    "onscreen-keyboard-input-only": false,
+    "statistics": {
+        "current-streak": 0,
+        "games-played": 0,
+        "guess-distribution": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "max-streak": 0,
+        "win-percentage": 0
+    },
+    "window-position": [
+        -1,
+        -1
+    ],
+    "window-size": [
+        625,
+        800
+    ]
+}
