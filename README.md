@@ -35,14 +35,9 @@ Download any of the following releases that fit your platform. Extract and run t
 
 
 ## 🔥 Screenshots ##
-### 🔗 Introductory and Main Gameplay Screens 🎮 ##
 <p align="left">
   <img src="media/intro-screen.png" width="450">
   <img src="media/gameplay.png" width="450">
-</p>
-
-### 🧩 How to Play and Settings Menus ⚙️ ##
-<p align="left">
   <img src="media/game-directions.png" width="450">
   <img src="media/settings-menu.png" width="450">
 </p>
