@@ -4,22 +4,22 @@
     "high-contrast-mode": false,
     "onscreen-keyboard-input-only": false,
     "statistics": {
-        "current-streak": 0,
-        "games-played": 0,
+        "current-streak": 16,
+        "games-played": 20,
         "guess-distribution": [
+            4,
             0,
             0,
-            0,
-            0,
-            0,
-            0
+            8,
+            6,
+            1
         ],
-        "max-streak": 0,
-        "win-percentage": 0
+        "max-streak": 16,
+        "win-percentage": 95
     },
     "window-position": [
-        -1,
-        -1
+        647,
+        149
     ],
     "window-size": [
         625,

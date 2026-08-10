@@ -42,15 +42,20 @@ void PopUpMessenger::addMessage(const QString& message) {
         .arg(textColor.red()).arg(textColor.green()).arg(textColor.blue())
         .arg(backgroundColor.red()).arg(backgroundColor.green()).arg(backgroundColor.blue());
     label->setStyleSheet(style);
-    connect(&ColorTheme::instance(), &ColorTheme::themeChanged, this, [this, label]() {
+
+
+    connect(&ColorTheme::instance(), &ColorTheme::themeChanged, label, [label]() {
         const auto& theme = ColorTheme::instance().getTheme();
         QColor textColor = theme.popUpMessage.text;
         QColor backgroundColor = theme.popUpMessage.background;
+
         QString style = QString("color: rgb(%1, %2, %3); background: rgb(%4, %5, %6); border-radius: 4px;")
             .arg(textColor.red()).arg(textColor.green()).arg(textColor.blue())
             .arg(backgroundColor.red()).arg(backgroundColor.green()).arg(backgroundColor.blue());
         label->setStyleSheet(style);
     });
+
+
     label->adjustSize();
     popUps.push_front(label);
     positionPopUps();

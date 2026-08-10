@@ -150,11 +150,9 @@ HowToPlayModal::HowToPlayModal(QWidget *parent) : Modal(parent) {
     modalContainer->adjustSize();
 
     // Set Theme for Remaining Components //
-    connect(&ColorTheme::instance(), &ColorTheme::themeChanged, this,
-        [this, title, subTitle, instructions, examplesHeader, correctExampleText, presentExampleText, absentExampleText]() {
+    connect(&ColorTheme::instance(), &ColorTheme::themeChanged, this, [this, title, subTitle, instructions, examplesHeader, correctExampleText, presentExampleText, absentExampleText]() {
         const auto& theme = ColorTheme::instance().getTheme();
         QColor textColor = theme.text.glyphBackground;
-
         QString centeredTextStyle = QString("color: rgb(%1, %2, %3); border-radius: none; border: none;")
             .arg(textColor.red()).arg(textColor.green()).arg(textColor.blue());
         QString indentedTextStyle = QString("color: rgb(%1, %2, %3); padding-left: 28px; border-radius: none; border: none;")

@@ -120,9 +120,9 @@ SettingsModal::SettingsModal(QWidget *parent) : Modal(parent) {
 
 
 /**
- * @brief .
+ * @brief Set the checked/unchecked on/off state of the Hard Mode Setting switch.
  *
- * @param isChecked .
+ * @param isChecked True if the switch is checked/on, false if unchecked/off.
  */
 void SettingsModal::setHardModeSwitch(bool isChecked) {
     Qt::CheckState checkState;
@@ -133,9 +133,9 @@ void SettingsModal::setHardModeSwitch(bool isChecked) {
 
 
 /**
- * @brief .
+ * @brief Set the checked/unchecked on/off state of the Dark Theme Setting switch.
  *
- * @param isChecked .
+ * @param isChecked True if the switch is checked/on, false if unchecked/off.
  */
 void SettingsModal::setDarkThemeSwitch(bool isChecked) {
     Qt::CheckState checkState;
@@ -146,9 +146,9 @@ void SettingsModal::setDarkThemeSwitch(bool isChecked) {
 
 
 /**
- * @brief .
+ * @brief Set the checked/unchecked on/off state of the High Contrast Mode Setting switch.
  *
- * @param isChecked .
+ * @param isChecked True if the switch is checked/on, false if unchecked/off.
  */
 void SettingsModal::setHighContrastModeSwitch(bool isChecked) {
     Qt::CheckState checkState;
@@ -159,9 +159,9 @@ void SettingsModal::setHighContrastModeSwitch(bool isChecked) {
 
 
 /**
- * @brief .
+ * @brief Set the checked/unchecked on/off state of the On Screen Keyboard Input Only Setting switch.
  *
- * @param isChecked .
+ * @param isChecked True if the switch is checked/on, false if unchecked/off.
  */
 void SettingsModal::setOnScreenKeyboardInputOnlySwitch(bool isChecked) {
     Qt::CheckState checkState;

@@ -70,7 +70,6 @@ WordleUI::WordleUI(QWidget *parent) : QWidget(parent) {
 
     // Configure UI //
     setLayout(screenStack);
-
 }
 
 
