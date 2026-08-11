@@ -178,7 +178,6 @@ void WordleApp::loadFonts() {
 
     for (const auto& fontPath : fontPaths) {
         fontID = QFontDatabase::addApplicationFont(fontPath);
-        if (fontID == -1) qWarning() << "Failed to Load Font" << fontPath;
         fontFamily = QFontDatabase::applicationFontFamilies(fontID).at(0);
     }
 }

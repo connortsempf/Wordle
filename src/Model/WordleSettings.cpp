@@ -40,7 +40,6 @@ void WordleSettings::loadSettings() {
 
     // If Settings Don't Exist, Just use the Default Settings Struct  //
     if (!settingsFile.exists()) {
-        qDebug() << "Settings file not found, creating with defaults:" << settingsFilePath;
         setWindowSize(defaultSettings.windowSize);
         setWindowPosition(defaultSettings.windowPosition);
         saveSettings();
@@ -49,7 +48,6 @@ void WordleSettings::loadSettings() {
 
     // Open and Read Settings //
     if (!settingsFile.open(QIODevice::ReadOnly)) {
-        qWarning() << "Could not open settings file for reading:" << settingsFilePath;
         return;
     }
 
@@ -60,12 +58,10 @@ void WordleSettings::loadSettings() {
     QJsonDocument doc = QJsonDocument::fromJson(data, &parseError);
 
     if (parseError.error != QJsonParseError::NoError) {
-        qWarning() << "JSON parse error:" << parseError.errorString();
         return;
     }
 
     if (!doc.isObject()) {
-        qWarning() << "Invalid JSON format: root is not an object";
         return;
     }
 
@@ -129,8 +125,6 @@ void WordleSettings::loadSettings() {
             }
         }
     }
-
-    qDebug() << "Settings loaded successfully";
 }
 
 
@@ -170,9 +164,6 @@ void WordleSettings::saveSettings() {
     if (file.open(QIODevice::WriteOnly)) {
         file.write(doc.toJson(QJsonDocument::Indented));
         file.close();
-        qDebug() << "Settings saved successfully";
-    }   else {
-        qWarning() << "Failed to save settings:" << settingsFilePath;
     }
 }
 

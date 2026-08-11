@@ -125,7 +125,6 @@ void WordleEngine::pickTargetWord() {
 
     // Fallback Word //
     if (!file.is_open()) {
-        // std::cerr << "Unable to Open 'assets/wordlists/words.txt' -- Defaulting to Target Word\n";
         targetWord = "apple";
         return;
     }
@@ -141,7 +140,6 @@ void WordleEngine::pickTargetWord() {
 
     // Fallback Word //
     if (words.empty()) {
-        // std::cerr << "Missing Data in 'assets/wordlists/words.txt' -- Defaulting to Target Word\n";
         targetWord = "apple";
         return;
     }
@@ -166,7 +164,6 @@ bool WordleEngine::isValidWord(const std::string& word) {
 
     // Error Opening File //
     if (!file.is_open()) {
-        // std::cerr << "Unable to Open 'assets/wordlists/words.txt' -- Defaulting to Target Word\n";
         return false;
     }
 
