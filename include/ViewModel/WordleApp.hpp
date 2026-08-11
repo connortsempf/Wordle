@@ -26,7 +26,7 @@
 #include <QVBoxLayout>
 #include "Model/GameConfig.hpp"
 #include "Model/WordleEngine.hpp"
-#include "Model/WordleStatistics.hpp"
+#include "Model/WordleSettings.hpp"
 #include "View/WordleUI.hpp"
 #include "View/Themes/ColorTheme.hpp"
 
@@ -64,20 +64,6 @@ class WordleApp : public QObject {
 
     private:
         /**
-         * @brief User Settings struct for persistent app data.
-         */
-        struct UserSettings {
-            QSize windowSize = {625, 800};
-            QPoint windowPosition = {-1, -1};
-            bool hardMode = false;
-            bool darkTheme = true;
-            bool highContrastMode = false;
-            bool onScreenKeyboardInputOnly = false;
-            WordleStatistics::Statistics statistics;
-        };
-
-    private:
-        /**
          * @brief The current guess being constructed.
          */
         std::string currentGuess = "";
@@ -88,24 +74,14 @@ class WordleApp : public QObject {
         WordleEngine engine;
 
         /**
-         * @brief The Wordle statistics logic manager for the application.
+         * @brief The Wordle user settings manager for the application.
          */
-        WordleStatistics statistics;
+        WordleSettings settingsManager;
 
         /**
-         * @brief The Wordle UI for the application.
+         * @brief The Wordle UI manager for the application.
          */
-        WordleUI* ui;
-
-        /**
-         * @brief Flag for controlling whether game-letter input can only come from the onscreen keyboard.
-         */
-        bool onScreenKeyboardInputOnly = false;
-
-        /**
-         * @brief Cache of user settings to track during runtime and save for persistent settings tracking.
-         */
-        UserSettings userSettings;
+        WordleUI* uiManager;
 
         /**
          * @brief Flag for if any game input will be acted upon.
@@ -119,14 +95,9 @@ class WordleApp : public QObject {
         void loadFonts();
 
         /**
-         * @brief Load saved user settings.
+         * @brief Setup the application window.
          */
-        void loadUserSettings();
-
-        /**
-         * @brief Save user settings to disk.
-         */
-        void saveUserSettings();
+        void setupWindow();
 
         /**
          * @brief Perform post-guess processes.

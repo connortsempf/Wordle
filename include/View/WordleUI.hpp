@@ -51,7 +51,7 @@ class WordleUI : public QWidget {
         void closeHowToPlay();
         void closeStatistics();
         void closeSettings();
-        void setStatistics(WordleStatistics::Statistics statistics);
+        void setStatistics(WordleSettings::Statistics statistics);
         void enableRestart();
         void disableRestart();
         void resetGameUI();

@@ -47,56 +47,49 @@ WordleApp::WordleApp(QObject *parent) : QObject(parent) {
 
     // Load Application Assets //
     loadFonts();
-    loadUserSettings();
-    statistics.loadStats(userSettings.statistics);
-
-    // Construct Window //
-    ui = new WordleUI();
-    QScreen* display = QGuiApplication::primaryScreen();
-    QRect displayGeometry = display->geometry();
-    if (userSettings.windowSize.width() < 625) userSettings.windowSize.setWidth(625);
-    else if (userSettings.windowSize.width() > displayGeometry.width()) userSettings.windowSize.setWidth(displayGeometry.width());
-    if (userSettings.windowSize.height() < 800) userSettings.windowSize.setHeight(800);
-    else if (userSettings.windowSize.height() > displayGeometry.height()) userSettings.windowSize.setWidth(displayGeometry.height());
-    if (userSettings.windowPosition.x() < 0 || userSettings.windowPosition.x() > displayGeometry.width()) userSettings.windowPosition.setX((displayGeometry.width() - userSettings.windowSize.width()) / 2);
-    if (userSettings.windowPosition.y() < 0 || userSettings.windowPosition.y() > displayGeometry.height()) userSettings.windowPosition.setY((displayGeometry.height() - userSettings.windowSize.height()) / 2);
-    ui->setGeometry(userSettings.windowPosition.x(), userSettings.windowPosition.y(), userSettings.windowSize.width(), userSettings.windowSize.height());
-    ui->setWindowTitle("Wordle");
-    ui->setWindowIcon(QIcon("../assets/textures/window-icon-opaque.png"));
+    settingsManager.loadSettings();
+    setupWindow();
 
     // Connect UI Interaction Signals //
-    connect(ui, &WordleUI::playGameInput,                       this, &WordleApp::handlePlayGameInput);
-    connect(ui, &WordleUI::playAgainInput,                      this, &WordleApp::handlePlayGameInput);
-    connect(ui, &WordleUI::keyboardLetterInput,                 this, &WordleApp::handleLetterInput);
-    connect(ui, &WordleUI::keyboardEnterInput,                  this, &WordleApp::handleCommitInput);
-    connect(ui, &WordleUI::keyboardBackspaceInput,              this, &WordleApp::handleDeleteInput);
-    connect(ui, &WordleUI::openStatisticsInput,                 this, [this]() { ui->openStatistics(); acceptingGameInput = false; });
-    connect(ui, &WordleUI::openHowToPlayInput,                  this, [this]() { ui->openHowToPlay(); acceptingGameInput = false; });
-    connect(ui, &WordleUI::openSettingsInput,                   this, [this]() { ui->openSettings(); acceptingGameInput = false; });
-    connect(ui, &WordleUI::closeStatisticsInput,                this, [this]() { ui->closeStatistics(); acceptingGameInput = true; });
-    connect(ui, &WordleUI::closeHowToPlayInput,                 this, [this]() { ui->closeHowToPlay(); acceptingGameInput = true; });
-    connect(ui, &WordleUI::closeSettingsInput,                  this, [this]() { ui->closeSettings(); acceptingGameInput = true; });
-    connect(ui, &WordleUI::enableHardMode,                      this, [this]() { engine.setDifficulty(WordleEngine::Difficulty::HARD_MODE); userSettings.hardMode = true; });
-    connect(ui, &WordleUI::enableDarkTheme,                     this, [this]() { ColorTheme::instance().setTheme(ColorTheme::Themes::DARK); userSettings.darkTheme = true; });
-    connect(ui, &WordleUI::enableHighContrastMode,              this, [this]() { ColorTheme::instance().setContrastMode(ColorTheme::ContrastMode::HIGH_CONTRAST); userSettings.highContrastMode = true; });
-    connect(ui, &WordleUI::enableOnscreenKeyboardInputOnly,     this, [this]() { onScreenKeyboardInputOnly = true; userSettings.onScreenKeyboardInputOnly = true; });
-    connect(ui, &WordleUI::disableHardMode,                     this, [this]() { engine.setDifficulty(WordleEngine::Difficulty::NORMAL_MODE); userSettings.hardMode = false; });
-    connect(ui, &WordleUI::disableDarkTheme,                    this, [this]() { ColorTheme::instance().setTheme(ColorTheme::Themes::LIGHT); userSettings.darkTheme = false; });
-    connect(ui, &WordleUI::disableHighContrastMode,             this, [this]() { ColorTheme::instance().setContrastMode(ColorTheme::ContrastMode::REGULAR_CONTRAST); userSettings.highContrastMode = false; });
-    connect(ui, &WordleUI::disableOnscreenKeyboardInputOnly,    this, [this]() { onScreenKeyboardInputOnly = false; userSettings.onScreenKeyboardInputOnly = false; });
-    connect(ui, &WordleUI::disabledSwitchPressed,               this, [this]() { ui->addPopUpMessage("Hard mode can only be enabled at the start of a round"); });
+    connect(uiManager, &WordleUI::playGameInput,                       this, &WordleApp::handlePlayGameInput);
+    connect(uiManager, &WordleUI::playAgainInput,                      this, &WordleApp::handlePlayGameInput);
+    connect(uiManager, &WordleUI::keyboardLetterInput,                 this, &WordleApp::handleLetterInput);
+    connect(uiManager, &WordleUI::keyboardEnterInput,                  this, &WordleApp::handleCommitInput);
+    connect(uiManager, &WordleUI::keyboardBackspaceInput,              this, &WordleApp::handleDeleteInput);
+    connect(uiManager, &WordleUI::openStatisticsInput,                 this, [this]() { uiManager->openStatistics(); acceptingGameInput = false; });
+    connect(uiManager, &WordleUI::openHowToPlayInput,                  this, [this]() { uiManager->openHowToPlay(); acceptingGameInput = false; });
+    connect(uiManager, &WordleUI::openSettingsInput,                   this, [this]() { uiManager->openSettings(); acceptingGameInput = false; });
+    connect(uiManager, &WordleUI::closeStatisticsInput,                this, [this]() { uiManager->closeStatistics(); acceptingGameInput = true; });
+    connect(uiManager, &WordleUI::closeHowToPlayInput,                 this, [this]() { uiManager->closeHowToPlay(); acceptingGameInput = true; });
+    connect(uiManager, &WordleUI::closeSettingsInput,                  this, [this]() { uiManager->closeSettings(); acceptingGameInput = true; });
+    connect(uiManager, &WordleUI::enableHardMode,                      this, [this]() { engine.setDifficulty(WordleEngine::Difficulty::HARD_MODE); settingsManager.setHardMode(true); });
+    connect(uiManager, &WordleUI::enableDarkTheme,                     this, [this]() { ColorTheme::instance().setTheme(ColorTheme::Themes::DARK); settingsManager.setDarkTheme(true); });
+    connect(uiManager, &WordleUI::enableHighContrastMode,              this, [this]() { ColorTheme::instance().setContrastMode(ColorTheme::ContrastMode::HIGH_CONTRAST); settingsManager.setHighContrastMode(true); });
+    connect(uiManager, &WordleUI::enableOnscreenKeyboardInputOnly,     this, [this]() { settingsManager.setOnScreenKeyboardInputOnly(true); });
+    connect(uiManager, &WordleUI::disableHardMode,                     this, [this]() { engine.setDifficulty(WordleEngine::Difficulty::NORMAL_MODE); settingsManager.setHardMode(false); });
+    connect(uiManager, &WordleUI::disableDarkTheme,                    this, [this]() { ColorTheme::instance().setTheme(ColorTheme::Themes::LIGHT); settingsManager.setDarkTheme(false); });
+    connect(uiManager, &WordleUI::disableHighContrastMode,             this, [this]() { ColorTheme::instance().setContrastMode(ColorTheme::ContrastMode::REGULAR_CONTRAST); settingsManager.setHighContrastMode(false); });
+    connect(uiManager, &WordleUI::disableOnscreenKeyboardInputOnly,    this, [this]() { settingsManager.setOnScreenKeyboardInputOnly(false); });
+    connect(uiManager, &WordleUI::disabledSwitchPressed,               this, [this]() { uiManager->addPopUpMessage("Hard mode can only be enabled at the start of a round"); });
 
     // Configure Default Start State for Application //
-    if (userSettings.darkTheme) ColorTheme::instance().setTheme(ColorTheme::Themes::DARK);
-    else if (!userSettings.darkTheme) ColorTheme::instance().setTheme(ColorTheme::Themes::LIGHT);
-    if (userSettings.highContrastMode) ColorTheme::instance().setContrastMode(ColorTheme::ContrastMode::HIGH_CONTRAST);
-    else if (!userSettings.highContrastMode) ColorTheme::instance().setContrastMode(ColorTheme::ContrastMode::REGULAR_CONTRAST);
-    ui->setStatistics(statistics.getStats());
-    ui->setHardModeSwitch(userSettings.hardMode);
-    ui->setDarkThemeSwitch(userSettings.darkTheme);
-    ui->setHighContrastModeSwitch(userSettings.highContrastMode);
-    ui->setOnScreenKeyboardInputOnlySwitch(userSettings.onScreenKeyboardInputOnly);
-    ui->show();
+    const WordleSettings::Settings& settings = settingsManager.getSettings();
+    if (settings.darkTheme) {
+        ColorTheme::instance().setTheme(ColorTheme::Themes::DARK);
+    }   else {
+        ColorTheme::instance().setTheme(ColorTheme::Themes::LIGHT);
+    }
+    if (settings.highContrastMode) {
+        ColorTheme::instance().setContrastMode(ColorTheme::ContrastMode::HIGH_CONTRAST);
+    }   else {
+        ColorTheme::instance().setContrastMode(ColorTheme::ContrastMode::REGULAR_CONTRAST);
+    }
+    uiManager->setStatistics(settings.statistics);
+    uiManager->setHardModeSwitch(settings.hardMode);
+    uiManager->setDarkThemeSwitch(settings.darkTheme);
+    uiManager->setHighContrastModeSwitch(settings.highContrastMode);
+    uiManager->setOnScreenKeyboardInputOnlySwitch(settings.onScreenKeyboardInputOnly);
+    uiManager->show();
 }
 
 
@@ -106,8 +99,9 @@ WordleApp::WordleApp(QObject *parent) : QObject(parent) {
 bool WordleApp::eventFilter(QObject* obj, QEvent* event) {
     // Handle Key Press Event Inputs //
     if (event->type() == QEvent::KeyPress) {
-        if (obj == ui) {
-            if (!onScreenKeyboardInputOnly) {
+        if (obj == uiManager) {
+            const WordleSettings::Settings& settings = settingsManager.getSettings();
+            if (!settings.onScreenKeyboardInputOnly) {
                 QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
                 // Ignore Key Auto-Repeat //
                 if (keyEvent->isAutoRepeat())
@@ -134,27 +128,25 @@ bool WordleApp::eventFilter(QObject* obj, QEvent* event) {
 
     // Handle Window Resize Events //
     else if (event->type() == QEvent::Resize) {
-        if (obj == ui) {
+        if (obj == uiManager) {
             QResizeEvent* resizeEvent = static_cast<QResizeEvent*>(event);
-            userSettings.windowSize.setWidth(resizeEvent->size().width());
-            userSettings.windowSize.setHeight(resizeEvent->size().height());
+            settingsManager.setWindowSize(QSize(resizeEvent->size().width(), resizeEvent->size().height()));
         }
     }
 
     // Handle Window Move Events //
     else if (event->type() == QEvent::Move) {
-        if (obj == ui) {
+        if (obj == uiManager) {
             QMoveEvent* moveEvent = static_cast<QMoveEvent*>(event);
-            userSettings.windowPosition.setX(moveEvent->pos().x());
-            userSettings.windowPosition.setY(moveEvent->pos().y());
+            settingsManager.setWindowPosition(QPoint(moveEvent->pos().x(), moveEvent->pos().y()));
         }
     }
 
     // Handle Window Resize Events //
     else if (event->type() == QEvent::Close) {
-        if (obj == ui) {
+        if (obj == uiManager) {
             QCloseEvent* closeEvent = static_cast<QCloseEvent*>(event);
-            saveUserSettings();
+            settingsManager.saveSettings();
         }
     }
 
@@ -193,126 +185,14 @@ void WordleApp::loadFonts() {
 
 
 /**
- * @brief Load saved user settings.
+ * @brief Setup the application window.
  */
-void WordleApp::loadUserSettings() {
-    QString userSettingsFilePath = "../assets/settings/settings.json";
-    QFile userSettingsFile(userSettingsFilePath);
-
-    if (!userSettingsFile.open(QIODevice::ReadOnly)) {
-        qWarning() << "Could not open settings file for reading:" << userSettingsFilePath;
-        return;
-    }
-    QByteArray data = userSettingsFile.readAll();
-    userSettingsFile.close();
-    QJsonDocument doc = QJsonDocument::fromJson(data);
-
-    if (!doc.isObject()) {
-        qWarning() << "Invalid JSON format";
-        return;
-    }
-    QJsonObject json = doc.object();
-
-    // Window Size //
-    if (json.contains("window-size") && json["window-size"].isArray()) {
-        QJsonArray sizeArray = json["window-size"].toArray();
-        if (sizeArray.size() == 2) {
-            userSettings.windowSize = QSize(sizeArray[0].toInt(), sizeArray[1].toInt());
-        }
-    }
-
-    // Window Position //
-    if (json.contains("window-position") && !json["window-position"].isNull() && json["window-position"].isArray()) {
-        QJsonArray posArray = json["window-position"].toArray();
-        if (posArray.size() == 2) {
-            userSettings.windowPosition = QPoint(posArray[0].toInt(), posArray[1].toInt());
-        }
-    }   else {
-        userSettings.windowPosition = QPoint(-1, -1);
-    }
-
-    // Boolean Settings //
-    userSettings.hardMode = json["hard-mode"].toBool(false);
-    userSettings.darkTheme = json["dark-theme"].toBool(true);
-    userSettings.highContrastMode = json["high-contrast-mode"].toBool(false);
-    userSettings.onScreenKeyboardInputOnly = json["onscreen-keyboard-input-only"].toBool(false);
-
-    // Statistics Settings //
-    if (json.contains("statistics") && json["statistics"].isObject()) {
-        QJsonObject stats = json["statistics"].toObject();
-        userSettings.statistics.gamesPlayed = stats["games-played"].toInt(0);
-        userSettings.statistics.winPercentage = stats["win-percentage"].toInt(0);
-        userSettings.statistics.currentStreak = stats["current-streak"].toInt(0);
-        userSettings.statistics.maxStreak = stats["max-streak"].toInt(0);
-        if (stats.contains("guess-distribution") && stats["guess-distribution"].isArray()) {
-            QJsonArray distArray = stats["guess-distribution"].toArray();
-            for (int i = 0; i < userSettings.statistics.guessDistribution.size(); i++) {
-                userSettings.statistics.guessDistribution[i] = (i <= distArray.size() - 1) ? distArray[i].toInt(0) : 0;
-            }
-        }
-    }
-}
-
-
-/**
- * @brief Save user settings to disk.
- */
-void WordleApp::saveUserSettings() {
-    QJsonObject json;
-    QString userSettingsFilePath = "../assets/settings/settings.json";
-
-    // Window Size //
-    QJsonArray windowSizeArray;
-    windowSizeArray.append(userSettings.windowSize.width());
-    windowSizeArray.append(userSettings.windowSize.height());
-    json["window-size"] = windowSizeArray;
-
-    // Window Position (Null if Invalid) //
-    if (userSettings.windowPosition.isNull()) {
-        json["window-position"] = QJsonValue::Null;
-    }   else {
-        QJsonArray windowPosArray;
-        windowPosArray.append(userSettings.windowPosition.x());
-        windowPosArray.append(userSettings.windowPosition.y());
-        json["window-position"] = windowPosArray;
-    }
-
-    // Boolean Settings //
-    json["hard-mode"] = userSettings.hardMode;
-    json["dark-theme"] = userSettings.darkTheme;
-    json["high-contrast-mode"] = userSettings.highContrastMode;
-    json["onscreen-keyboard-input-only"] = userSettings.onScreenKeyboardInputOnly;
-
-    // Statistics Settings //
-    QJsonObject statsObj;
-    statsObj["games-played"] = static_cast<int>(userSettings.statistics.gamesPlayed);
-    statsObj["win-percentage"] = static_cast<int>(userSettings.statistics.winPercentage);
-    statsObj["current-streak"] = static_cast<int>(userSettings.statistics.currentStreak);
-    statsObj["max-streak"] = static_cast<int>(userSettings.statistics.maxStreak);
-
-    QJsonArray guessDistArray;
-    for (int val : userSettings.statistics.guessDistribution) {
-        guessDistArray.append(val);
-    }
-    statsObj["guess-distribution"] = guessDistArray;
-    json["statistics"] = statsObj;
-
-    // Create Directory if it Doesn't Exist //
-    QFileInfo fileInfo(userSettingsFilePath);
-    QDir dir = fileInfo.absoluteDir();
-    if (!dir.exists()) {
-        dir.mkpath(".");
-    }
-
-    // Write to User Settings to File //
-    QFile file(userSettingsFilePath);
-    if (!file.open(QIODevice::WriteOnly)) {
-        qWarning() << "Could not open settings file for writing:" << userSettingsFilePath;
-        return;
-    }
-    QJsonDocument doc(json);
-    file.write(doc.toJson(QJsonDocument::Indented));
-    file.close();
+void WordleApp::setupWindow() {
+    uiManager = new WordleUI();
+    const WordleSettings::Settings& settings = settingsManager.getSettings();
+    uiManager->setGeometry(settings.windowPosition.x(), settings.windowPosition.y(), settings.windowSize.width(), settings.windowSize.height());
+    uiManager->setWindowTitle("Wordle");
+    uiManager->setWindowIcon(QIcon("../assets/textures/window-icon-opaque.png"));
 }
 
 
@@ -324,7 +204,7 @@ void WordleApp::saveUserSettings() {
 void WordleApp::initiatePostGuess(WordleEngine::GuessResult guessResult) {
     // Set the Visual State of the Keyboard //
     for (int i = 0; i < guessResult.guess.size(); i++) {
-        ui->setKeyboardKeyState(QChar(guessResult.guess[i]), guessResult.letterStates[i]);
+        uiManager->setKeyboardKeyState(QChar(guessResult.guess[i]), guessResult.letterStates[i]);
     }
 
     // Handle Game Won or Lost Logic //
@@ -333,9 +213,7 @@ void WordleApp::initiatePostGuess(WordleEngine::GuessResult guessResult) {
     }
     if (guessResult.guessValidity == WordleEngine::GuessValidity::GameWon || guessResult.guessValidity == WordleEngine::GuessValidity::GameLost) {
         acceptingGameInput = false;
-
-        // Add the Pop Up Message //
-        ui->addPopUpMessage(QString::fromStdString(guessResult.message));
+        uiManager->addPopUpMessage(QString::fromStdString(guessResult.message));
 
         // Determine Game Outcome //
         bool gameWon;
@@ -343,14 +221,13 @@ void WordleApp::initiatePostGuess(WordleEngine::GuessResult guessResult) {
         else if (guessResult.guessValidity == WordleEngine::GuessValidity::GameWon) gameWon = true;
 
         // Track Game Stats, Cache Stats in User Settings, Upload Stats to Statistics Modal //
-        statistics.addGameStats(gameWon, guessResult.numAttempts);
-        WordleStatistics::Statistics newStats = statistics.getStats();
-        userSettings.statistics = newStats;
-        ui->setStatistics(newStats);
-        ui->enableRestart();
+        settingsManager.updateGameStats(gameWon, guessResult.numAttempts);
+        WordleSettings::Statistics newStats = settingsManager.getSettings().statistics;
+        uiManager->setStatistics(newStats);
+        uiManager->enableRestart();
 
         // Open Statistics Screen if Game Won //
-        if (gameWon) QTimer::singleShot(2000, this, [this, guessResult]() { ui->openStatistics(); });
+        if (gameWon) QTimer::singleShot(2000, this, [this, guessResult]() { uiManager->openStatistics(); });
     }
 }
 
@@ -360,14 +237,14 @@ void WordleApp::initiatePostGuess(WordleEngine::GuessResult guessResult) {
  */
 void WordleApp::handlePlayGameInput() {
     engine.startNewGame();
-    ui->enableHardModeToggling();
-    ui->disableRestart();
-    ui->resetGameUI();
-    ui->closeIntroScreen();
-    ui->closeHowToPlay();
-    ui->closeStatistics();
-    ui->closeSettings();
-    ui->resetGameUI();
+    uiManager->enableHardModeToggling();
+    uiManager->disableRestart();
+    uiManager->resetGameUI();
+    uiManager->closeIntroScreen();
+    uiManager->closeHowToPlay();
+    uiManager->closeStatistics();
+    uiManager->closeSettings();
+    uiManager->resetGameUI();
     acceptingGameInput = true;
 }
 
@@ -383,7 +260,7 @@ void WordleApp::handleLetterInput(QChar letter) {
     if (!engine.getIsActive()) return;
     if (currentGuess.length() >= GameConfig::WORD_LENGTH) return;
     currentGuess += QString(letter).toStdString();
-    ui->appendLetter(letter);
+    uiManager->appendLetter(letter);
 }
 
 
@@ -392,7 +269,6 @@ void WordleApp::handleLetterInput(QChar letter) {
  */
 void WordleApp::handleCommitInput() {
     if (!acceptingGameInput) return;
-
     WordleEngine::GuessResult guessResult = engine.makeGuess(currentGuess);
 
     // Game is Not Active //
@@ -407,8 +283,8 @@ void WordleApp::handleCommitInput() {
              guessResult.guessValidity == WordleEngine::GuessValidity::PreviousCorrectLetterWordInvalid ||
              guessResult.guessValidity == WordleEngine::GuessValidity::PreviousPresentLetterWordInvalid
     ) {
-        ui->addPopUpMessage(QString::fromStdString(guessResult.message));
-        ui->invalidGuess();
+        uiManager->addPopUpMessage(QString::fromStdString(guessResult.message));
+        uiManager->invalidGuess();
     }
 
     // Guess Word Incorrect, Guess Word Correct (Game Won), or Guess Word Incorrect and Out of Turns (Game Lost) //
@@ -418,9 +294,9 @@ void WordleApp::handleCommitInput() {
     ) {
         currentGuess = "";
         acceptingGameInput = false;
-        ui->commitGuess(guessResult.letterStates);
-        if (guessResult.numAttempts >= 1 && engine.getDifficulty() == WordleEngine::Difficulty::NORMAL_MODE) ui->disableHardModeToggling();
-        connect(ui, &WordleUI::commitLettersAnimationFinished, this, [this, guessResult]() { initiatePostGuess(guessResult); }, Qt::SingleShotConnection);
+        uiManager->commitGuess(guessResult.letterStates);
+        if (guessResult.numAttempts >= 1 && engine.getDifficulty() == WordleEngine::Difficulty::NORMAL_MODE) uiManager->disableHardModeToggling();
+        connect(uiManager, &WordleUI::commitLettersAnimationFinished, this, [this, guessResult]() { initiatePostGuess(guessResult); }, Qt::SingleShotConnection);
     }
 }
 
@@ -430,8 +306,7 @@ void WordleApp::handleCommitInput() {
  */
 void WordleApp::handleDeleteInput() {
     if (!acceptingGameInput) return;
-
     if (currentGuess.empty()) return;
     currentGuess.pop_back();
-    ui->deleteLetter();
+    uiManager->deleteLetter();
 }

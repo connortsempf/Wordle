@@ -137,7 +137,7 @@ void WordleUI::closeSettings() {
  *
  * @param statistics .
  */
-void WordleUI::setStatistics(WordleStatistics::Statistics statistics) {
+void WordleUI::setStatistics(WordleSettings::Statistics statistics) {
     statisticsModal->setStatistics(statistics);
 }
 

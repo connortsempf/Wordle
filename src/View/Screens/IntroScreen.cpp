@@ -35,7 +35,7 @@ IntroScreen::IntroScreen(QWidget *parent) : QWidget(parent) {
     title->setStyleSheet("color: black;");
 
     // Construct Directions //
-    QLabel* directions = new QLabel(QString("Get %1 changes to guess\na %2-letter word.").arg(GameConfig::NUM_GUESSES).arg(GameConfig::WORD_LENGTH), this);
+    QLabel* directions = new QLabel(QString("Get %1 chances to guess\na %2-letter word.").arg(GameConfig::NUM_GUESSES).arg(GameConfig::WORD_LENGTH), this);
     directions->setAlignment(Qt::AlignCenter);
     directions->setContentsMargins(0, 0, 0, 0);
     directions->setFont(QFont("NYTStymie", 25, QFont::Medium));

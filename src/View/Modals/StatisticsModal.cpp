@@ -185,7 +185,7 @@ StatisticsModal::StatisticsModal(QWidget *parent) : Modal(parent) {
  *
  * @param statistics The statistics to display.
  */
-void StatisticsModal::setStatistics(WordleStatistics::Statistics statistics) {
+void StatisticsModal::setStatistics(WordleSettings::Statistics statistics) {
     headerStatLabels[0]->setText(QString::number(statistics.gamesPlayed));
     headerStatLabels[1]->setText(QString::number(statistics.winPercentage));
     headerStatLabels[2]->setText(QString::number(statistics.currentStreak));

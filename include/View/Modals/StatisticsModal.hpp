@@ -22,7 +22,7 @@
 #include <QGraphicsOpacityEffect>
 #include <QParallelAnimationGroup>
 #include "Model/GameConfig.hpp"
-#include "Model/WordleStatistics.hpp"
+#include "Model/WordleSettings.hpp"
 #include "View/Components/Modal.hpp"
 #include "View/Themes/ColorTheme.hpp"
 
@@ -47,7 +47,7 @@ class StatisticsModal : public Modal {
          *
          * @param statistics The statistics to display.
          */
-        void setStatistics(WordleStatistics::Statistics statistics);
+        void setStatistics(WordleSettings::Statistics statistics);
 
         /**
          * @brief Enable the ability to restart from the Statistics Modal.

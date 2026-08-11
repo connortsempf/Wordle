@@ -73,7 +73,7 @@ endif()
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
     "${CMAKE_SOURCE_DIR}/include/ViewModel/WordleApp.hpp"
     "${CMAKE_SOURCE_DIR}/include/Model/WordleEngine.hpp"
-    "${CMAKE_SOURCE_DIR}/include/Model/WordleStatistics.hpp"
+    "${CMAKE_SOURCE_DIR}/include/Model/WordleSettings.hpp"
     "${CMAKE_SOURCE_DIR}/include/Model/LetterState.hpp"
     "${CMAKE_SOURCE_DIR}/include/View/WordleUI.hpp"
     "${CMAKE_SOURCE_DIR}/include/View/Components/GuessBoard.hpp"
@@ -95,7 +95,7 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     "${CMAKE_SOURCE_DIR}/src/main.cpp"
     "${CMAKE_SOURCE_DIR}/src/ViewModel/WordleApp.cpp"
     "${CMAKE_SOURCE_DIR}/src/Model/WordleEngine.cpp"
-    "${CMAKE_SOURCE_DIR}/src/Model/WordleStatistics.cpp"
+    "${CMAKE_SOURCE_DIR}/src/Model/WordleSettings.cpp"
     "${CMAKE_SOURCE_DIR}/src/View/WordleUI.cpp"
     "${CMAKE_SOURCE_DIR}/src/View/Components/GuessBoard.cpp"
     "${CMAKE_SOURCE_DIR}/src/View/Components/Header.cpp"
