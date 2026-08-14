@@ -43,6 +43,7 @@
 ## Build ##
 build/
 bin/
+packages/
 
 ## IDE ##
 .vscode/

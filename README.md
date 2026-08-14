@@ -7,11 +7,8 @@
 <br>
 
 
-## 🧰 Installation From Release ##
-Download any of the following releases that fit your platform. Extract and run the executable.
-- **Windows:** ``
-- **macOS:** ``
-- **Linux:** ``
+## 🧰 Installation ##
+Build from source and package for installation for **Windows**, **macOS**, and **Linux** using `CMake` and `CPack`. If full installation is not desired, the built executables can be run alone.
 
 
 ---
@@ -24,7 +21,7 @@ Download any of the following releases that fit your platform. Extract and run t
 - **⏱️ Real-Time Game Feedback:** Instant visual feedback on letter matches, including color-coded tiles (green for correct position, yellow for wrong position, gray for not in word).
 - **🧩 Sustained Player Statistics and Settings:** Save your game progress, win streak, and personal statistics. Customize difficulty levels and game preferences that persist between sessions.
 - **🖼️ Responsive Window Layouts:** Adapts seamlessly to different window sizes and screen resolutions without breaking the user interface.
-- **🛡️ Full Application Support:** Proper window icons, system tray integration, keyboard shortcuts, and native OS integration for a polished desktop experience.
+- **🛡️ Full Application Support:** Proper native OS integration for a polished desktop experience.
 - **🖥️ Cross-Platform Support (Windows, macOS, Linux):** Built with Qt6 to run natively on all major operating systems with consistent behavior.
 - **📚 Fully Documented:** Well-commented source code, inline documentation, and developer guides for anyone wanting to contribute or modify the project.
 
@@ -48,12 +45,13 @@ Download any of the following releases that fit your platform. Extract and run t
 <br>
 
 
-## 🛠️ Building From Source ##
+## 🛠️ Building From Source and Packaging for Installation ##
 ### 🔹 Install Project Requirements ###
 To build **Wordle** from source, install the following as they are all required.
 - **Qt 6.10+** or higher development libraries.
 - **C++ 20+** capabilities. Qt6 will come with the necessary compiler to build the project.
 - **CMake 3.16+** for building the project.
+- **CPack 3.16+** for packaging the project. (Distributed with CMake)
 - **Git** to clone the Wordle repository.
 ### 🔹 Install Qt Development Libraries ###
 - **Windows:** Install Qt from [qt.io](https://www.qt.io/development/download)
@@ -86,10 +84,15 @@ cmake .. -DQT6_DIR="/path/to/your/Qt/package/6.10.x/compiler/"
 
 ## Generate the Application ##
 cmake --build .
+
+## Package the Application ##
+cpack
 ```
-### 🔹 Run the Application ###
+### 🔹 Run the Application or Perform Official Installation on your Machine ###
 - The output binaries are generated in the `/bin` directory
-- Find and run the executable from there
+- If desired, find and run the executable from there
+- The packaged installers are generated in the `/packages` directory
+- If official installation to your machine is desired, run the installer
 
 
 ---
