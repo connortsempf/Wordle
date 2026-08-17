@@ -10,6 +10,8 @@
 
 
 #pragma once
+#include <QFile>
+#include <QTextStream>
 #include <string>
 #include <array>
 #include <vector>

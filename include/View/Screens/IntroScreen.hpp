@@ -15,7 +15,6 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <QFontDatabase>
 #include "Model/GameConfig.hpp"
 
 

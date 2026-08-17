@@ -136,7 +136,7 @@ StatisticsModal::StatisticsModal(QWidget *parent) : Modal(parent) {
     playAgainButton->setFixedSize(250, 55);
     playAgainButton->setLayoutDirection(Qt::RightToLeft);
     playAgainButton->setCursor(Qt::PointingHandCursor);
-    playAgainButton->setIcon(QIcon("../assets/textures/refresh-icon.png"));
+    playAgainButton->setIcon(QIcon(":/images/assets/images/refresh-icon.png"));
     playAgainButton->setIconSize(QSize(20, 20));
     playAgainButton->setContentsMargins(0, 0, 0, 0);
     playAgainButton->setFont(QFont("Arial", 18, QFont::Bold));

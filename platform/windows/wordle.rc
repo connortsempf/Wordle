@@ -11,11 +11,11 @@ BEGIN
     BEGIN
         BLOCK "040904E4"
         BEGIN
-            VALUE "CompanyName",      "Wordle"
+            VALUE "CompanyName",      "Connor Sempf"
             VALUE "FileDescription",  "Wordle - A Word Guessing Game"
             VALUE "FileVersion",      "1.0.0.0"
             VALUE "InternalName",     "Wordle"
-            VALUE "LegalCopyright",   "Connor Sempf 2026. Wordle concept game clone from the New York Times."
+            VALUE "LegalCopyright",   "Connor Sempf 2026. Wordle game clone from the New York Times."
             VALUE "OriginalFilename", "Wordle.exe"
             VALUE "ProductName",      "Wordle"
             VALUE "ProductVersion",   "1.0.0.0"

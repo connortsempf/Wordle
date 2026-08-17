@@ -20,7 +20,7 @@
 IntroScreen::IntroScreen(QWidget *parent) : QWidget(parent) {
     // Construct Header Image //
     QLabel* headerImageLabel = new QLabel(this);
-    QPixmap headerImage("../assets/textures/wordle-emblem-transparent.png");
+    QPixmap headerImage(":/images/assets/images/wordle-emblem-transparent.png");
     headerImageLabel->setPixmap(headerImage);
     headerImageLabel->setFixedSize(90, 90);
     headerImageLabel->setScaledContents(true);

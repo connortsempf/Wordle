@@ -20,6 +20,7 @@
  * @param message The message text to be logged.
  */
 void debugLogHandler(QtMsgType type, const QMessageLogContext &context, const QString &message) {
+    return;
     // Ensure the logs Directory Exists //
     QDir logDir("../logs");
     if (!logDir.exists()) logDir.mkpath(".");
@@ -160,25 +161,31 @@ bool WordleApp::eventFilter(QObject* obj, QEvent* event) {
  */
 void WordleApp::loadFonts() {
     int fontID;
-    QString fontFamily;
     std::vector<QString> fontPaths = {
-        "../assets/fonts/NYTKarnak-Condensed-Bold.ttf",
-        "../assets/fonts/NYTStymie-Regular-500.ttf",
-        "../assets/fonts/HelveticaNeue-Regular-Light.otf",
-        "../assets/fonts/HelveticaNeue-Regular-Normal.otf",
-        "../assets/fonts/HelveticaNeue-Regular-Medium.otf",
-        "../assets/fonts/HelveticaNeue-Regular-Bold.otf",
-        "../assets/fonts/NYTFranklin-Regular-700.ttf",
-        "../assets/fonts/NYTFranklin-Regular-800.ttf",
-        "../assets/fonts/Arial-Regular-Normal.TTF",
-        "../assets/fonts/Arial-Regular-Medium.TTF",
-        "../assets/fonts/Arial-Regular-Bold.TTF",
-        "../assets/fonts/FontIcons.ttf"
+        ":/fonts/assets/fonts/NYTKarnak-Condensed-Bold.ttf",
+        ":/fonts/assets/fonts/NYTStymie-Regular-500.ttf",
+        ":/fonts/assets/fonts/HelveticaNeue-Regular-Light.otf",
+        ":/fonts/assets/fonts/HelveticaNeue-Regular-Normal.otf",
+        ":/fonts/assets/fonts/HelveticaNeue-Regular-Medium.otf",
+        ":/fonts/assets/fonts/HelveticaNeue-Regular-Bold.otf",
+        ":/fonts/assets/fonts/NYTFranklin-Regular-700.ttf",
+        ":/fonts/assets/fonts/NYTFranklin-Regular-800.ttf",
+        ":/fonts/assets/fonts/Arial-Regular-Normal.TTF",
+        ":/fonts/assets/fonts/Arial-Regular-Medium.TTF",
+        ":/fonts/assets/fonts/Arial-Regular-Bold.TTF",
+        ":/fonts/assets/fonts/FontIcons.ttf"
     };
 
     for (const auto& fontPath : fontPaths) {
         fontID = QFontDatabase::addApplicationFont(fontPath);
-        fontFamily = QFontDatabase::applicationFontFamilies(fontID).at(0);
+        if (fontID == -1) {
+            continue;
+        }
+
+        QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontID);
+        if (!fontFamilies.isEmpty()) {
+            QString fontFamily = fontFamilies.at(0);
+        }
     }
 }
 
@@ -191,7 +198,6 @@ void WordleApp::setupWindow() {
     const WordleSettings::Settings& settings = settingsManager.getSettings();
     uiManager->setGeometry(settings.windowPosition.x(), settings.windowPosition.y(), settings.windowSize.width(), settings.windowSize.height());
     uiManager->setWindowTitle("Wordle");
-    uiManager->setWindowIcon(QIcon("../assets/textures/window-icon-opaque.png"));
 }
 
 

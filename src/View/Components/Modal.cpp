@@ -39,7 +39,7 @@ Modal::Modal(QWidget *parent) : QWidget(parent) {
     // X Button //
     QPushButton* closeButton = new QPushButton(modalContainer);
     closeButton->setFixedSize(34, 34);
-    closeButton->setIcon(QIcon("../assets/textures/x-icon.png"));
+    closeButton->setIcon(QIcon(":/images/assets/images/x-icon.png"));
     closeButton->setIconSize(QSize(34, 34));
     closeButton->setStyleSheet("border-radius: 0px; border: none;");
     connect(closeButton, &QPushButton::clicked, this, &Modal::close);
@@ -80,7 +80,7 @@ Modal::Modal(QWidget *parent) : QWidget(parent) {
 
         // Recolor the Close Button //
         QColor iconColor = theme.texture.glyphBackground;
-        QPixmap closeButtonOriginal("../assets/textures/x-icon.png");
+        QPixmap closeButtonOriginal(":/images/assets/images/x-icon.png");
         QPixmap closeButtonPainted = closeButtonOriginal;
         closeButtonPainted.fill(Qt::transparent);
         QPainter painter(&closeButtonPainted);

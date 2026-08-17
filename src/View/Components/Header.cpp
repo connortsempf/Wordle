@@ -42,7 +42,7 @@ Header::Header(QWidget *parent) : QWidget(parent) {
 
     // Statistics Button //
     QPushButton* statisticsButton = new QPushButton(this);
-    statisticsButton->setIcon(QIcon("../assets/textures/statistics-icon.png"));
+    statisticsButton->setIcon(QIcon(":/images/assets/images/statistics-icon.png"));
     statisticsButton->setIconSize(QSize(28, 28));
     statisticsButton->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
     statisticsButton->setStyleSheet(buttonStyleSheet);
@@ -51,7 +51,7 @@ Header::Header(QWidget *parent) : QWidget(parent) {
 
     // How To Play Button //
     QPushButton* howToPlayButton = new QPushButton(this);
-    howToPlayButton->setIcon(QIcon("../assets/textures/how-to-play-icon.png"));
+    howToPlayButton->setIcon(QIcon(":/images/assets/images/how-to-play-icon.png"));
     howToPlayButton->setIconSize(QSize(28, 28));
     howToPlayButton->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
     howToPlayButton->setStyleSheet(buttonStyleSheet);
@@ -60,7 +60,7 @@ Header::Header(QWidget *parent) : QWidget(parent) {
 
     // Settings Button //
     QPushButton* settingsButton = new QPushButton(this);
-    settingsButton->setIcon(QIcon("../assets/textures/settings-icon.png"));
+    settingsButton->setIcon(QIcon(":/images/assets/images/settings-icon.png"));
     settingsButton->setIconSize(QSize(28, 28));
     settingsButton->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
     settingsButton->setStyleSheet(buttonStyleSheet);
@@ -128,9 +128,9 @@ Header::Header(QWidget *parent) : QWidget(parent) {
         QColor iconColor = theme.texture.glyphBackground;
         for (int i = 0; i < 3; i++) {
             QPixmap closeButtonOriginal;
-            if      (i == 0) closeButtonOriginal = QPixmap("../assets/textures/statistics-icon.png");
-            else if (i == 1) closeButtonOriginal = QPixmap("../assets/textures/how-to-play-icon.png");
-            else if (i == 2) closeButtonOriginal = QPixmap("../assets/textures/settings-icon.png");
+            if      (i == 0) closeButtonOriginal = QPixmap(":/images/assets/images/statistics-icon.png");
+            else if (i == 1) closeButtonOriginal = QPixmap(":/images/assets/images/how-to-play-icon.png");
+            else if (i == 2) closeButtonOriginal = QPixmap(":/images/assets/images/settings-icon.png");
             QPixmap closeButtonPainted = closeButtonOriginal;
             closeButtonPainted.fill(Qt::transparent);
             QPainter painter(&closeButtonPainted);

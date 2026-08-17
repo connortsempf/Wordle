@@ -121,33 +121,34 @@ const WordleEngine::Difficulty& WordleEngine::getDifficulty() const {
  * @brief Picks a target word for the game.
  */
 void WordleEngine::pickTargetWord() {
-    std::ifstream file("../assets/wordlists/target-words.txt");
+    QFile targetWordsFile(":/wordlists/assets/wordlists/target-words.txt");
 
-    // Fallback Word //
-    if (!file.is_open()) {
+    // Fail to Open File //
+    if (!targetWordsFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         targetWord = "apple";
         return;
     }
 
     std::vector<std::string> words;
-    std::string word;
-    while (std::getline(file, word)) {
-        if (!word.empty()) {
-            words.push_back(word);
+    QTextStream stream(&targetWordsFile);
+    while (!stream.atEnd()) {
+        QString line = stream.readLine().trimmed();
+        if (!line.isEmpty()) {
+            words.push_back(line.toStdString());
         }
     }
-    file.close();
+    targetWordsFile.close();
 
-    // Fallback Word //
+    // File is Empty/Corrupted //
     if (words.empty()) {
         targetWord = "apple";
         return;
     }
 
-    // Seed RNG for Random Word //
+    // Word Chosen at Random //
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dist(0, words.size() - 1);
+    std::uniform_int_distribution<std::size_t> dist(0, words.size() - 1);
     targetWord = words[dist(gen)];
 }
 
@@ -160,23 +161,25 @@ void WordleEngine::pickTargetWord() {
  * @return True if the word exists, false otherwise.
  */
 bool WordleEngine::isValidWord(const std::string& word) {
-    std::ifstream file("../assets/wordlists/valid-words.txt");
+    QFile validWordsFile(":/wordlists/assets/wordlists/valid-words.txt");
 
     // Error Opening File //
-    if (!file.is_open()) {
+    if (!validWordsFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return false;
     }
 
-    std::string line;
-    while (std::getline(file, line)) {
-        if (line == word) {
-            file.close();
+    QTextStream stream(&validWordsFile);
+    while (!stream.atEnd()) {
+        QString line = stream.readLine().trimmed();
+
+        if (line.toStdString() == word) {
+            validWordsFile.close();
             return true;
         }
     }
 
-    // Word Not Found in words.txt -- Invalid //
-    file.close();
+    // Word Not Found -- Invalid //
+    validWordsFile.close();
     return false;
 }
 
