@@ -68,6 +68,35 @@ endif()
 
 
 
+#########################
+#### Configure Build ####
+#########################
+
+## Default to Release Mode Configuration ##
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+endif()
+
+
+## Force Debug or Release Mode Configurations ##
+if(CMAKE_BUILD_TYPE AND
+   NOT CMAKE_BUILD_TYPE STREQUAL "Debug" AND
+   NOT CMAKE_BUILD_TYPE STREQUAL "Release")
+    message(FATAL_ERROR
+        "Invalid build type: ${CMAKE_BUILD_TYPE}.
+
+        Use the Debug or Release configuration.
+
+        \"cmake -DCMAKE_BUILD_TYPE=Debug\"
+        or
+        \"cmake -DCMAKE_BUILD_TYPE=Release\"
+        "
+    )
+endif()
+
+
+
+
 ######################
 #### Build Source ####
 ######################
@@ -77,6 +106,7 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
     "${CMAKE_SOURCE_DIR}/include/ViewModel/WordleApp.hpp"
     "${CMAKE_SOURCE_DIR}/include/Model/WordleEngine.hpp"
     "${CMAKE_SOURCE_DIR}/include/Model/WordleSettings.hpp"
+    "${CMAKE_SOURCE_DIR}/include/Model/LoggingManager.hpp"
     "${CMAKE_SOURCE_DIR}/include/Model/LetterState.hpp"
     "${CMAKE_SOURCE_DIR}/include/View/WordleUI.hpp"
     "${CMAKE_SOURCE_DIR}/include/View/Components/GuessBoard.hpp"
@@ -99,6 +129,7 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     "${CMAKE_SOURCE_DIR}/src/ViewModel/WordleApp.cpp"
     "${CMAKE_SOURCE_DIR}/src/Model/WordleEngine.cpp"
     "${CMAKE_SOURCE_DIR}/src/Model/WordleSettings.cpp"
+    "${CMAKE_SOURCE_DIR}/src/Model/LoggingManager.cpp"
     "${CMAKE_SOURCE_DIR}/src/View/WordleUI.cpp"
     "${CMAKE_SOURCE_DIR}/src/View/Components/GuessBoard.cpp"
     "${CMAKE_SOURCE_DIR}/src/View/Components/Header.cpp"
@@ -119,6 +150,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 
 ## Generate OS-Specific Wordle Application Executable ##
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+
+## Tell the Application the Build Configuration ##
+target_compile_definitions(Wordle PRIVATE
+    $<$<CONFIG:Debug>:DEBUG>
+    $<$<CONFIG:Release>:RELEASE>
+)
 
 ## Target Qt Resources Files ##
 target_sources(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/resources.qrc")
