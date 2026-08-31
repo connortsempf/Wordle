@@ -13,30 +13,6 @@
 
 
 /**
- * @brief Handle logging for debugging throughout the application.
- *
- * @param type The type of message being logged (Debug, Warning, Critical, Fatal, Info).
- * @param context The context information including file, line, and function where the message originated.
- * @param message The message text to be logged.
- */
-void debugLogHandler(QtMsgType type, const QMessageLogContext &context, const QString &message) {
-    return;
-    // Ensure the logs Directory Exists //
-    QDir logDir("../logs");
-    if (!logDir.exists()) logDir.mkpath(".");
-
-    // Log the Message //
-    QFile outFile("../logs/debug.log");
-    if (outFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
-        QTextStream ts(&outFile);
-        QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz");
-        ts << "[" << timestamp << "] " << message << "\n";
-        outFile.close();
-    }
-}
-
-
-/**
  * @brief Constructs a WordleApp object.
  *
  * @param parent The parent QWidget.
@@ -44,7 +20,7 @@ void debugLogHandler(QtMsgType type, const QMessageLogContext &context, const QS
 WordleApp::WordleApp(QObject *parent) : QObject(parent) {
     // App Configurations //
     qApp->installEventFilter(this);
-    qInstallMessageHandler(debugLogHandler);
+    qInstallMessageHandler(LoggingManager::messageLoggingHandler);
 
     // Load Application Assets //
     loadFonts();
@@ -91,6 +67,7 @@ WordleApp::WordleApp(QObject *parent) : QObject(parent) {
     uiManager->setHighContrastModeSwitch(settings.highContrastMode);
     uiManager->setOnScreenKeyboardInputOnlySwitch(settings.onScreenKeyboardInputOnly);
     uiManager->show();
+    qInfo() << "Application Started";
 }
 
 
@@ -148,6 +125,7 @@ bool WordleApp::eventFilter(QObject* obj, QEvent* event) {
         if (obj == uiManager) {
             QCloseEvent* closeEvent = static_cast<QCloseEvent*>(event);
             settingsManager.saveSettings();
+            qInfo() << "Application Terminated";
         }
     }
 
@@ -222,8 +200,14 @@ void WordleApp::initiatePostGuess(WordleEngine::GuessResult guessResult) {
 
         // Determine Game Outcome //
         bool gameWon;
-        if (guessResult.guessValidity == WordleEngine::GuessValidity::GameLost) gameWon = false;
-        else if (guessResult.guessValidity == WordleEngine::GuessValidity::GameWon) gameWon = true;
+        if (guessResult.guessValidity == WordleEngine::GuessValidity::GameLost) {
+            gameWon = false;
+            qInfo() << "Wordle Game Finished Unsuccessfully";
+        }
+        else if (guessResult.guessValidity == WordleEngine::GuessValidity::GameWon) {
+            gameWon = true;
+            qInfo() << "Wordle Game Finished Successfully with " << guessResult.numAttempts << " Guesses.";
+        }
 
         // Track Game Stats, Cache Stats in User Settings, Upload Stats to Statistics Modal //
         settingsManager.updateGameStats(gameWon, guessResult.numAttempts);
@@ -251,6 +235,8 @@ void WordleApp::handlePlayGameInput() {
     uiManager->closeSettings();
     uiManager->resetGameUI();
     acceptingGameInput = true;
+
+    qInfo() << "Wordle Game Started";
 }
 
 

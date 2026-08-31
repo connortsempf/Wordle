@@ -27,18 +27,9 @@
 #include "Model/GameConfig.hpp"
 #include "Model/WordleEngine.hpp"
 #include "Model/WordleSettings.hpp"
+#include "Model/LoggingManager.hpp"
 #include "View/WordleUI.hpp"
 #include "View/Themes/ColorTheme.hpp"
-
-
-/**
- * @brief Handle logging for debugging throughout the application.
- *
- * @param type The type of message being logged (Debug, Warning, Critical, Fatal, Info).
- * @param context The context information including file, line, and function where the message originated.
- * @param message The message text to be logged.
- */
-void debugLogHandler(QtMsgType type, const QMessageLogContext &context, const QString &message);
 
 
 /**
@@ -82,6 +73,11 @@ class WordleApp : public QObject {
          * @brief The Wordle UI manager for the application.
          */
         WordleUI* uiManager;
+
+        /**
+         * @brief The Wordle Logging manager for the application.
+         */
+        LoggingManager loggingManager;
 
         /**
          * @brief Flag for if any game input will be acted upon.
