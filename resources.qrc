@@ -9,7 +9,7 @@
         <file>assets/fonts/NYTFranklin-Regular-700.ttf</file>
         <file>assets/fonts/NYTFranklin-Regular-800.ttf</file>
         <file>assets/fonts/Arial-Regular-Normal.TTF</file>
-        <file>assets/fonts/Arial-Regular-Medium.TTF</file>
+        <file>assets/fonts/Arial-Regular-Medium.ttf</file>
         <file>assets/fonts/Arial-Regular-Bold.TTF</file>
         <file>assets/fonts/FontIcons.ttf</file>
     </qresource>
