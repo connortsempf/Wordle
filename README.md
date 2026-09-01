@@ -8,7 +8,7 @@
 
 
 ## 🧰 Installation ##
-Build from source and package for installation for **Windows**, **macOS**, and **Linux** using `CMake` and `CPack`. If full installation is not desired, the built executables can be run alone.
+Build from source and package for installation for **Windows**, **macOS**, and **Linux** using `CMake` and `CPack`. Then execute the installer to integrate the program to your device. Otherwise, if full installation is not desired, the built executables can be run on their own and you can play Wordle as is.
 
 
 ---
@@ -52,6 +52,8 @@ To build **Wordle** from source, install the following as they are all required.
 - **C++ 20+** capabilities. Qt6 will come with the necessary compiler to build the project.
 - **CMake 3.16+** for building the project.
 - **CPack 3.16+** for packaging the project. (Distributed with CMake)
+- **WiX (Windows only)** for Windows .msi packaging of the project.
+- **NSIS (Windows only)** for Windows .exe packaging of the project.
 - **Git** to clone the Wordle repository.
 ### 🔹 Install Qt Development Libraries ###
 - **Windows:** Install Qt from [qt.io](https://www.qt.io/development/download)
