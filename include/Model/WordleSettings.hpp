@@ -14,6 +14,8 @@
 #include <QSize>
 #include <QPoint>
 #include <QString>
+#include <QGuiApplication>
+#include <QScreen>
 #include <QFile>
 #include <QDir>
 #include <QStandardPaths>
