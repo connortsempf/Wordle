@@ -25,12 +25,12 @@ GameScreen::GameScreen(QWidget *parent) : QWidget(parent) {
     keyboard = new Keyboard(this);
 
     // Connect and Propagate Signals //
-    connect(header, &Header::openStatistics, this, emit &openStatistics);
-    connect(header, &Header::openHowToPlay, this, emit &openHowToPlay);
-    connect(header, &Header::openSettings, this, emit &openSettings);
-    connect(keyboard, &Keyboard::letterInput, this, emit &letterInput);
-    connect(keyboard, &Keyboard::enterInput, this, emit &enterInput);
-    connect(keyboard, &Keyboard::backspaceInput, this, emit &backspaceInput);
+    connect(header, &Header::openStatistics, this, &GameScreen::openStatistics);
+    connect(header, &Header::openHowToPlay, this, &GameScreen::openHowToPlay);
+    connect(header, &Header::openSettings, this, &GameScreen::openSettings);
+    connect(keyboard, &Keyboard::letterInput, this, &GameScreen::letterInput);
+    connect(keyboard, &Keyboard::enterInput, this, &GameScreen::enterInput);
+    connect(keyboard, &Keyboard::backspaceInput, this, &GameScreen::backspaceInput);
 
     // Connect GuessBoard Signals //
     connect(guessBoard, &GuessBoard::commitLettersAnimationFinished, this, &GameScreen::commitLettersAnimationFinished);
