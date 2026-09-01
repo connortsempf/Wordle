@@ -211,10 +211,10 @@ endif()
 
 ## Linux Application Build ##
 if(UNIX AND NOT APPLE)
-    install(TARGETS ${PROJECT_NAME} DESTINATION bin)
-    install(FILES "${CMAKE_SOURCE_DIR}/platform/linux/${PROJECT_NAME}.desktop" DESTINATION share/applications)
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+install(FILES "${CMAKE_SOURCE_DIR}/platform/linux/${PROJECT_NAME}.desktop" DESTINATION share/applications)
     install(FILES "${CMAKE_SOURCE_DIR}/platform/linux/${PROJECT_NAME}.png" DESTINATION share/pixmaps)
-endif()
+    endif()
 
 
 
@@ -224,6 +224,7 @@ endif()
 ##################################
 
 ## Set Packaging Configurations ##
+set(CPACK_PACKAGE_CONTACT "Connor Sempf connor.sempf@gmail.com")
 set(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_DIRECTORY "${CMAKE_SOURCE_DIR}/packages")
