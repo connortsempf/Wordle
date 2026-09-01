@@ -149,7 +149,7 @@ void WordleApp::loadFonts() {
         ":/fonts/assets/fonts/NYTFranklin-Regular-700.ttf",
         ":/fonts/assets/fonts/NYTFranklin-Regular-800.ttf",
         ":/fonts/assets/fonts/Arial-Regular-Normal.TTF",
-        ":/fonts/assets/fonts/Arial-Regular-Medium.TTF",
+        ":/fonts/assets/fonts/Arial-Regular-Medium.ttf",
         ":/fonts/assets/fonts/Arial-Regular-Bold.TTF",
         ":/fonts/assets/fonts/FontIcons.ttf"
     };
