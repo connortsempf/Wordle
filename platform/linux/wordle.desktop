@@ -5,6 +5,6 @@ Name=Wordle
 Comment=A word-guessing game
 Exec=Wordle
 Icon=Wordle
-Categories=Game
+Categories=Game;
 Terminal=false
 StartupNotify=true;
