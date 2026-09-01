@@ -77,7 +77,6 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
 endif()
 
-
 ## Force Debug or Release Mode Configurations ##
 if(CMAKE_BUILD_TYPE AND
    NOT CMAKE_BUILD_TYPE STREQUAL "Debug" AND
@@ -236,7 +235,7 @@ set(CPACK_VERBATIM_VARIABLES YES)
 ## Windows Packaging ##
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     ## MSI Installation Specifications ##
-    set(CPACK_GENERATOR "WIX")
+    set(CPACK_GENERATOR "WIX;NSIS")
     set(CPACK_WIX_UPGRADE_GUID "64093d62-e197-2dce-b77f-cccb269fd4e0")
     set(CPACK_WIX_PROGRAM_MENU_FOLDER "${PROJECT_NAME}")
     set(CPACK_WIX_PRODUCT_ICON "${CMAKE_SOURCE_DIR}/platform/windows/${PROJECT_NAME}.ico")
@@ -254,8 +253,8 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     set(CPACK_NSIS_INSTALLED_ICON_NAME "${PROJECT_NAME}.exe")
     set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/platform/windows/${PROJECT_NAME}.ico")
     set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/platform/windows/${PROJECT_NAME}.ico")
-    # set(CPACK_NSIS_MUI_WELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}/platform/windows/${PROJECT_NAME}-Dialog-Welcome.bmp")
-    # set(CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}/platform/windows/${PROJECT_NAME}-Dialog-Welcome.bmp")
+    set(CPACK_NSIS_MUI_WELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}\\platform\\windows\\${PROJECT_NAME}-Dialog-Welcome.bmp")
+    set(CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}\\platform\\windows\\${PROJECT_NAME}-Dialog-Unwelcome.bmp")
     set(CPACK_NSIS_CREATE_ICONS_EXTRA "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\${PROJECT_NAME}.lnk' '$INSTDIR\\\\${PROJECT_NAME}.exe'")
     set(CPACK_NSIS_DELETE_ICONS_EXTRA "Delete '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\${PROJECT_NAME}.lnk'")
     set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS
