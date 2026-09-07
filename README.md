@@ -8,7 +8,7 @@
 
 
 ## 🧰 Installation ##
-Build from source and package for installation for **Windows**, **macOS**, and **Linux** using `CMake` and `CPack`. Then execute the installer to integrate the program to your device. Otherwise, if full installation is not desired, the built executables can be run on their own and you can play Wordle as is.
+Build from source and install to **Windows**, **macOS**, and **Linux** using `CMake`. If full installation is not desired, the built executables can be run on their own and you can play Wordle right from the build.
 
 
 ---
@@ -51,9 +51,6 @@ To build **Wordle** from source, install the following as they are all required.
 - **Qt 6.10+** or higher development libraries.
 - **C++ 20+** capabilities. Qt6 will come with the necessary compiler to build the project.
 - **CMake 3.16+** for building the project.
-- **CPack 3.16+** for packaging the project. (Distributed with CMake)
-- **WiX (Windows only)** for Windows .msi packaging of the project.
-- **NSIS (Windows only)** for Windows .exe packaging of the project.
 - **Git** to clone the Wordle repository.
 ### 🔹 Install Qt Development Libraries ###
 - **Windows:** Install Qt from [qt.io](https://www.qt.io/development/download)
@@ -76,7 +73,7 @@ cd wordle
 mkdir build
 cd build
 ```
-### 🔹 Build the Project Using CMake ###
+### 🔹 Build and Install the Project Using CMake ###
 ```bash
 ## Configure the Build ##
 cmake ..
@@ -87,14 +84,13 @@ cmake .. -DQT6_DIR="/path/to/your/Qt/package/6.10.x/compiler/"
 ## Generate the Application ##
 cmake --build .
 
-## Package the Application ##
-cpack
+## Install the Application ##
+cmake --install .
 ```
-### 🔹 Run the Application or Perform Official Installation on your Machine ###
-- The output binaries are generated in the `/bin` directory
-- If desired, find and run the executable from there
-- The packaged installers are generated in the `/packages` directory
-- If official installation to your machine is desired, run the installer
+### 🔹 Run the Application or Install to your Machine ###
+- From here, the Wordle application is installed and you may run it as your machine allows.
+- If you don't desire installation, the output binaries are generated in the `/bin` directory
+- If desired, find and run the executable from there only without installing
 
 
 ---
