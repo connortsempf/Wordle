@@ -2,7 +2,7 @@
 Version=1.0.0
 Type=Application
 Name=Wordle
-Comment=A word-guessing game
+Comment=A Word Guessing Game
 Exec=Wordle
 Icon=Wordle
 Categories=Game;
