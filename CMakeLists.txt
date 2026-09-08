@@ -215,3 +215,12 @@ if(UNIX AND NOT APPLE)
     install(FILES "${CMAKE_SOURCE_DIR}/platform/linux/${PROJECT_NAME}.desktop" DESTINATION share/applications)
     install(FILES "${CMAKE_SOURCE_DIR}/platform/linux/${PROJECT_NAME}.png" DESTINATION share/icons/hicolor/512x512/apps)
 endif()
+
+
+
+
+############################
+#### Package with CPack ####
+############################
+
+include("${CMAKE_SOURCE_DIR}/CPackConfig.cmake")
