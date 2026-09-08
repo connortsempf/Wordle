@@ -160,7 +160,7 @@ target_compile_definitions(Wordle PRIVATE
 )
 
 ## Target Qt Resources Files ##
-target_sources(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/resources.qrc")
+target_sources(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/assets/assets.qrc")
 
 ## Target Include Files ##
 target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/include")
@@ -201,13 +201,12 @@ endif()
 if(APPLE)
     set_target_properties(${PROJECT_NAME} PROPERTIES
         MACOSX_BUNDLE ON
-        MACOSX_BUNDLE_GUI_IDENTIFIER "com.connorsempf.wordle"
+        MACOSX_BUNDLE_GUI_IDENTIFIER "com.connorsempf.${PROJECT_NAME}"
         MACOSX_BUNDLE_BUNDLE_NAME ${PROJECT_NAME}
         MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
         MACOSX_BUNDLE_ICON_FILE "wordle.icns"
     )
-    set_source_files_properties("${CMAKE_SOURCE_DIR}/resources/macOS/${PROJECT_NAME}.icns"
-        PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+    set_source_files_properties("${CMAKE_SOURCE_DIR}/resources/macOS/${PROJECT_NAME}.icns" PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     target_sources(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/platform/macOS/${PROJECT_NAME}.icns")
     install(TARGETS ${PROJECT_NAME} DESTINATION Applications)
 endif()

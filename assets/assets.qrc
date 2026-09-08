@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/font-assets">
+        <file>fonts/NYTKarnak-Condensed-Bold.ttf</file>
+        <file>fonts/NYTStymie-Regular-500.ttf</file>
+        <file>fonts/HelveticaNeue-Regular-Light.otf</file>
+        <file>fonts/HelveticaNeue-Regular-Normal.otf</file>
+        <file>fonts/HelveticaNeue-Regular-Medium.otf</file>
+        <file>fonts/HelveticaNeue-Regular-Bold.otf</file>
+        <file>fonts/NYTFranklin-Regular-700.ttf</file>
+        <file>fonts/NYTFranklin-Regular-800.ttf</file>
+        <file>fonts/Arial-Regular-Normal.TTF</file>
+        <file>fonts/Arial-Regular-Medium.ttf</file>
+        <file>fonts/Arial-Regular-Bold.TTF</file>
+        <file>fonts/FontIcons.ttf</file>
+    </qresource>
+    <qresource prefix="/image-assets">
+        <file>images/how-to-play-icon.png</file>
+        <file>images/refresh-icon.png</file>
+        <file>images/settings-icon.png</file>
+        <file>images/statistics-icon.png</file>
+        <file>images/window-icon-opaque.png</file>
+        <file>images/window-icon-transparent.png</file>
+        <file>images/wordle-emblem-opaque.png</file>
+        <file>images/wordle-emblem-transparent.png</file>
+        <file>images/wordle-emblem.png</file>
+        <file>images/x-icon.png</file>
+    </qresource>
+    <qresource prefix="/wordlist-assets">
+        <file>wordlists/target-words.txt</file>
+        <file>wordlists/valid-words.txt</file>
+    </qresource>
+</RCC>

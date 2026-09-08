@@ -121,7 +121,7 @@ const WordleEngine::Difficulty& WordleEngine::getDifficulty() const {
  * @brief Picks a target word for the game.
  */
 void WordleEngine::pickTargetWord() {
-    QFile targetWordsFile(":/wordlists/assets/wordlists/target-words.txt");
+    QFile targetWordsFile(":/wordlist-assets/wordlists/target-words.txt");
 
     // Fail to Open File //
     if (!targetWordsFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -161,7 +161,7 @@ void WordleEngine::pickTargetWord() {
  * @return True if the word exists, false otherwise.
  */
 bool WordleEngine::isValidWord(const std::string& word) {
-    QFile validWordsFile(":/wordlists/assets/wordlists/valid-words.txt");
+    QFile validWordsFile(":/wordlist-assets/wordlists/valid-words.txt");
 
     // Error Opening File //
     if (!validWordsFile.open(QIODevice::ReadOnly | QIODevice::Text)) {

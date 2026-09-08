@@ -140,18 +140,18 @@ bool WordleApp::eventFilter(QObject* obj, QEvent* event) {
 void WordleApp::loadFonts() {
     int fontID;
     std::vector<QString> fontPaths = {
-        ":/fonts/assets/fonts/NYTKarnak-Condensed-Bold.ttf",
-        ":/fonts/assets/fonts/NYTStymie-Regular-500.ttf",
-        ":/fonts/assets/fonts/HelveticaNeue-Regular-Light.otf",
-        ":/fonts/assets/fonts/HelveticaNeue-Regular-Normal.otf",
-        ":/fonts/assets/fonts/HelveticaNeue-Regular-Medium.otf",
-        ":/fonts/assets/fonts/HelveticaNeue-Regular-Bold.otf",
-        ":/fonts/assets/fonts/NYTFranklin-Regular-700.ttf",
-        ":/fonts/assets/fonts/NYTFranklin-Regular-800.ttf",
-        ":/fonts/assets/fonts/Arial-Regular-Normal.TTF",
-        ":/fonts/assets/fonts/Arial-Regular-Medium.ttf",
-        ":/fonts/assets/fonts/Arial-Regular-Bold.TTF",
-        ":/fonts/assets/fonts/FontIcons.ttf"
+        ":/font-assets/fonts/NYTKarnak-Condensed-Bold.ttf",
+        ":/font-assets/fonts/NYTStymie-Regular-500.ttf",
+        ":/font-assets/fonts/HelveticaNeue-Regular-Light.otf",
+        ":/font-assets/fonts/HelveticaNeue-Regular-Normal.otf",
+        ":/font-assets/fonts/HelveticaNeue-Regular-Medium.otf",
+        ":/font-assets/fonts/HelveticaNeue-Regular-Bold.otf",
+        ":/font-assets/fonts/NYTFranklin-Regular-700.ttf",
+        ":/font-assets/fonts/NYTFranklin-Regular-800.ttf",
+        ":/font-assets/fonts/Arial-Regular-Normal.TTF",
+        ":/font-assets/fonts/Arial-Regular-Medium.ttf",
+        ":/font-assets/fonts/Arial-Regular-Bold.TTF",
+        ":/font-assets/fonts/FontIcons.ttf"
     };
 
     for (const auto& fontPath : fontPaths) {
