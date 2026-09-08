@@ -4,7 +4,6 @@
 
 ---
 <br>
-<br>
 
 
 ## 🧰 Installation ##
@@ -12,7 +11,6 @@ Build from source and install to **Windows**, **macOS**, and **Linux** using `CM
 
 
 ---
-<br>
 <br>
 
 
@@ -28,7 +26,6 @@ Build from source and install to **Windows**, **macOS**, and **Linux** using `CM
 
 ---
 <br>
-<br>
 
 
 ## 🔥 Screenshots ##
@@ -41,7 +38,6 @@ Build from source and install to **Windows**, **macOS**, and **Linux** using `CM
 
 
 ---
-<br>
 <br>
 
 
@@ -94,7 +90,6 @@ cmake --install .
 
 
 ---
-<br>
 <br>
 
 
