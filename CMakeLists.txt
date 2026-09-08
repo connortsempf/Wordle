@@ -5,8 +5,11 @@
 ## CMake Version Requirement ##
 cmake_minimum_required(VERSION 3.16)
 
-## Author and Developer ##
+## Project Author and Developer ##
 set(AUTHOR "Connor Sempf")
+
+## Project Author and Developer Contact ##
+set(AUTHOR_CONTACT "connor.sempf@gmail.com")
 
 ## Project Definition ##
 project(Wordle VERSION 1.0.0 LANGUAGES CXX)
@@ -219,8 +222,8 @@ endif()
 
 
 
-############################
-#### Package with CPack ####
-############################
+#############################################
+#### Package for Installation with CPack ####
+#############################################
 
 include("${CMAKE_SOURCE_DIR}/CPackConfig.cmake")

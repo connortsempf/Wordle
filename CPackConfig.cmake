@@ -9,7 +9,7 @@
 #### Set Packaging Configurations ####
 ######################################
 
-set(CPACK_PACKAGE_CONTACT "Connor Sempf connor.sempf@gmail.com")
+set(CPACK_PACKAGE_CONTACT "${AUTHOR} ${AUTHOR_CONTACT}")
 set(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_DIRECTORY "${CMAKE_SOURCE_DIR}/packages")
