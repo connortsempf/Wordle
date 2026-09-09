@@ -6,8 +6,11 @@
 <br>
 
 
-## 🧰 Installation ##
-Build from source and install to **Windows**, **macOS**, and **Linux** using `CMake`. If full installation is not desired, the built executables can be run on their own and you can play Wordle right from the build.
+## 🧰 Build and Install ##
+Build from source and install to **Windows**, **macOS**, and **Linux** using `CMake`.
+- Follow the build and install instructions for **Windows** [here](#-build-and-install-for-windows).
+- Follow the build and install instructions for **macOS** [here](#-build-and-install-for-macos).
+- Follow the build and install instructions for **Linux** [here](#-build-and-install-for-linux).
 
 
 ---
@@ -41,35 +44,26 @@ Build from source and install to **Windows**, **macOS**, and **Linux** using `CM
 <br>
 
 
-## 🛠️ Building From Source and Packaging for Installation ##
-### 🔹 Install Project Requirements ###
-To build **Wordle** from source, install the following as they are all required.
-- **Qt 6.10+** or higher development libraries.
+## 🛠️🪟 Build and Install for Windows ##
+### 🔹 Build from Source ###
+#### 🔸 Install Build Requirements ####
+To build **Wordle** from source for Windows, install the following as they are all required.
+- **Qt 6.10** or higher development libraries. Install Qt from [qt.io](https://www.qt.io/development/download)
 - **C++ 20+** capabilities. Qt6 will come with the necessary compiler to build the project.
-- **CMake 3.16+** for building the project.
-- **Git** to clone the Wordle repository.
-### 🔹 Install Qt Development Libraries ###
-- **Windows:** Install Qt from [qt.io](https://www.qt.io/development/download)
-- **macOS:**
-    ```bash
-    brew install qt6
-    ```
-- **Linux:**
-    ```bash
-    sudo apt install qt6-base-dev qt6-tools-dev cmake build-essential
-    ```
-### 🔹 Clone the Repository ###
+- **CMake 3.16+** for building the project. Install CMake from [cmake.org](https://cmake.org/download)
+- **Git** to clone the Wordle repository. Install Git from [git-scm.com](https://git-scm.com/install/windows)
+#### 🔸 Clone the Repository ####
 ```bash
 cd /path/to/your/desired/directory
 git clone https://github.com/connortsempf/wordle.git
 cd wordle
 ```
-### 🔹 Create the Build Directory ###
+#### 🔸 Create the Build Directory ####
 ```bash
 mkdir build
 cd build
 ```
-### 🔹 Build and Install the Project Using CMake ###
+#### 🔸 Build the Project Using CMake ####
 ```bash
 ## Configure the Build ##
 cmake ..
@@ -79,14 +73,166 @@ cmake .. -DQT6_DIR="/path/to/your/Qt/package/6.10.x/compiler/"
 
 ## Generate the Application ##
 cmake --build .
-
-## Install the Application ##
+```
+### 🔹 Install Directly (Installation Option 1.) ###
+#### 🔸 Install Directly using CMake ####
+```bash
 cmake --install .
 ```
-### 🔹 Run the Application or Install to your Machine ###
-- From here, the Wordle application is installed and you may run it as your machine allows.
-- If you don't desire installation, the output binaries are generated in the `/bin` directory
-- If desired, find and run the executable from there only without installing
+### 🔹 Package for Installation (Installation Option 2.) ###
+#### 🔸 Install Packaging Requirements ####
+To package Wordle for traditional windows application installation, install the following as they are required.
+- **WiX** packaging system. Install WiX from [github.com/wixtoolset](https://github.com/wixtoolset/wix/releases)
+- **NSIS** packaging system. Install NSIS from [nsis.sourceforge.io](https://nsis.sourceforge.io/Download)
+#### 🔸 Navigate to the Build Directory ####
+```bash
+cd /path/to/your/desired/directory/build
+```
+#### 🔸 Package the Application ####
+```bash
+cpack
+```
+#### 🔸 Navigate to the Packages Directory ####
+```bash
+cd ../packages
+```
+#### 🔸 Run the Desired Installer ####
+Both installers are valid, choose your preferred installer and run it as normal to install Wordle to your machine.
+
+
+---
+<br>
+
+
+## 🛠️🍎 Build and Install for macOS ##
+### 🔹 Build from Source ###
+#### 🔸 Install Build Requirements ####
+To build **Wordle** from source for macOS, install the following as they are all required.
+- **Qt 6.10** or higher development libraries. Install Qt with Homebrew from the command line with...
+```bash
+brew install qt
+```
+- **C++ 20+** capabilities. Qt6 will come with the necessary compiler to build the project.
+- **CMake 3.16+** for building the project. Install CMake with Homebrew from the command line with...
+```bash
+brew install cmake
+```
+- **Git** to clone the Wordle repository. Install Git with Homebrew from the command line with...
+```bash
+brew install git
+```
+#### 🔸 Clone the Repository ####
+```bash
+cd /path/to/your/desired/directory
+git clone https://github.com/connortsempf/wordle.git
+cd wordle
+```
+#### 🔸 Create the Build Directory ####
+```bash
+mkdir build
+cd build
+```
+#### 🔸 Build the Project Using CMake ####
+```bash
+## Configure the Build ##
+cmake ..
+
+## Generate the Application ##
+cmake --build .
+```
+### 🔹 Install Directly (Installation Option 1.) ###
+#### 🔸 Install Directly with the Generated .app File ####
+Simply drag and drop the `Wordle.app` file generated within the `/bin` directory to your applications
+### 🔹 Package for Installation (Installation Option 2.) ###
+#### 🔸 Navigate to the Build Directory ####
+```bash
+cd /path/to/your/desired/directory/build
+```
+#### 🔸 Package the Application ####
+```bash
+cpack
+```
+#### 🔸 Navigate to the Packages Directory ####
+```bash
+cd ../packages
+```
+#### 🔸 Run the Installer ####
+Run the `.dmg` installer as normal to install Wordle to your machine.
+
+
+---
+<br>
+
+
+## 🛠️🐧 Build and Install for Linux ##
+### 🔹 Install Project Requirements ###
+To build **Wordle** from source for Linux, install the following as they are all required.
+- **Qt 6.10** or higher development libraries.
+- **C++ 20+** capabilities. Qt6 will come with the necessary compiler to build the project.
+- **CMake 3.16+** for building the project.
+- **Git** to clone the Wordle repository.
+These can all be installed from the command line with the following command
+```bash
+## Ubuntu / Debian ##
+sudo apt install qt6-base-dev qt6-tools-dev cmake git
+
+## Fedora ##
+sudo dnf install qt6-base-dev qt6-tools-dev cmake git
+
+## Arch ##
+sudo pacman install qt6-base-dev qt6-tools-dev cmake git
+
+## Change your Package Manager Command as Needed ##
+```
+### 🔸 Clone the Repository ####
+```bash
+cd /path/to/your/desired/directory
+git clone https://github.com/connortsempf/wordle.git
+cd wordle
+```
+#### 🔸 Create the Build Directory ####
+```bash
+mkdir build
+cd build
+```
+#### 🔸 Build the Project Using CMake ####
+```bash
+## Configure the Build ##
+cmake ..
+
+## Generate the Application ##
+cmake --build .
+```
+### 🔹 Install Directly (Installation Option 1.) ###
+#### 🔸 Install Directly using CMake ####
+```bash
+cmake --install .
+```
+### 🔹 Package for Installation (Installation Option 2.) ###
+#### 🔸 Install Packaging Requirements ####
+To package Wordle for traditional Linux application installation, install the following as it is required.
+```bash
+## Change your Package Manager Command as Needed ##
+sudo apt install rpm-build
+```
+#### 🔸 Navigate to the Build Directory ####
+```bash
+cd /path/to/your/desired/directory/build
+```
+#### 🔸 Package the Application ####
+```bash
+sudo cpack
+```
+#### 🔸 Navigate to the Packages Directory ####
+```bash
+cd ../packages
+```
+#### 🔸 Execute the Desired Installer ####
+```bash
+## Change your Package Manager Command as Needed ##
+sudo apt install ./<package-name.deb>
+sudo apt install ./<package-name.rpm>
+```
 
 
 ---
